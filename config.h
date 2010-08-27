@@ -12,4 +12,6 @@
 /* Size of the queue for schedule tasks */
 #define SCHED_QUEUE_SIZE 2
 
+#define SRIC_DIRECTOR 0
+
 #endif /* __CONFIG_H */

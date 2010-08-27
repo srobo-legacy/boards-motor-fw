@@ -6,9 +6,10 @@ CFLAGS += -include `pwd`/config.h
 LDFLAGS :=
 
 O_FILES = main.o
-SUBDIRS = drivers
+SUBDIRS = drivers libsric
 
 LDFLAGS += -Ldrivers -ldrivers
+LDFLAGS += -Llibsric -lsric
 
 all: motor
 
@@ -17,8 +18,11 @@ include depend
 motor: ${O_FILES} ${SUBDIRS}
 	${CC} -o $@ ${O_FILES} ${CFLAGS} ${LDFLAGS}
 
-${SUBDIRS}:
+drivers:
 	$(MAKE) -C $@ CC=${CC} ARCH=${ARCH} CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
+
+libsric:
+	$(MAKE) -C $@ CC=${CC} ARCH=${ARCH} CFLAGS="${CFLAGS} -I`pwd`" LDFLAGS="${LDFLAGS}"
 
 depend: *.c
 	rm -f depend
