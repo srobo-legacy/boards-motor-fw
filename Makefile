@@ -6,9 +6,9 @@ CFLAGS += -include `pwd`/config.h
 LDFLAGS :=
 
 O_FILES = main.o
-SUBDIRS =
+SUBDIRS = drivers
 
-LDFLAGS += 
+LDFLAGS += -Ldrivers -ldrivers
 
 all: motor
 
