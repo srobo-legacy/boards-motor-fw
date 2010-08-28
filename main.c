@@ -16,11 +16,14 @@
 */
 
 #include <io.h>
+#include "drivers/sched.h"
 
 void init(void) {
 	/* Set DCO to 16MHz */
 	DCOCTL = CALDCO_16MHZ;
 	BCSCTL1 = CALBC1_16MHZ;
+
+	sched_init();
 }
 
 int main(void) {
