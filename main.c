@@ -16,7 +16,38 @@
 */
 
 #include <io.h>
+#include <signal.h>
+#include <stddef.h>
 #include "drivers/sched.h"
+#include "drivers/usci.h"
+#include "libsric/sric.h"
+
+const usci_t usci_config[1] = {
+	{
+		.tx_gen_byte = sric_tx_cb,
+		.rx_byte = sric_rx_cb,
+
+		/* 115200 baud
+		   from http://mspgcc.sourceforge.net/baudrate.html */
+		.br0 = 0x8A,
+		.br1 = 0x00,
+		.mctl = 0xef,
+
+		.sel_rx = &P3SEL,
+		.sel_tx = &P3SEL,
+		.sel_rx_num = 5,
+		.sel_tx_num = 4,
+	},
+};
+
+const sric_conf_t sric_conf = {
+	.usart_tx_start = usci_tx_start,
+	.usart_rx_gate = usci_rx_gate,
+	.usart_n = 0,
+
+	.rx_cmd = NULL,
+	.rx_resp = NULL,
+};
 
 void init(void) {
 	/* Set DCO to 16MHz */
@@ -24,6 +55,11 @@ void init(void) {
 	BCSCTL1 = CALBC1_16MHZ;
 
 	sched_init();
+	usci_init();
+
+	sric_init();
+
+	eint();
 }
 
 int main(void) {
