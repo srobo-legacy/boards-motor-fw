@@ -17,6 +17,17 @@
 
 #include <io.h>
 
+void init(void) {
+	/* Set DCO to 16MHz */
+	DCOCTL = CALDCO_16MHZ;
+	BCSCTL1 = CALBC1_16MHZ;
+}
+
 int main(void) {
+	/* Disable watchdog */
+	WDTCTL = WDTHOLD | WDTPW;
+
+	init();
+
 	while(1);
 }
