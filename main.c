@@ -23,6 +23,7 @@
 #include "drivers/usci.h"
 #include "libsric/sric.h"
 #include "pwm.h"
+#include "h-bridge.h"
 
 const usci_t usci_config[1] = {
 	{
@@ -59,6 +60,7 @@ void init(void) {
 	BCSCTL1 = CALBC1_16MHZ;
 
 	pwm_init();
+	h_bridge_init();
 
 	sched_init();
 	usci_init();
