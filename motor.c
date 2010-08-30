@@ -32,14 +32,20 @@ void motor_set(int8_t power) {
 		pwm_set(power);
 		if (h_bridge_get() != M_BRAKE)
 			h_bridge_set(M_FWD);
+		else
+			old_state = M_FWD;
 	} else if (power < 0) {
 		pwm_set(-power);
 		if (h_bridge_get() != M_BRAKE)
 			h_bridge_set(M_REV);
+		else
+			old_state = M_REV;
 	} else {
 		pwm_set(0);
 		if (h_bridge_get() != M_BRAKE)
 			h_bridge_set(M_OFF);
+		else
+			old_state = M_OFF;
 	}
 }
 
