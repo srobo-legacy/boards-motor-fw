@@ -22,6 +22,7 @@
 #include "drivers/sched.h"
 #include "drivers/usci.h"
 #include "libsric/sric.h"
+#include "pwm.h"
 
 const usci_t usci_config[1] = {
 	{
@@ -56,6 +57,8 @@ void init(void) {
 	/* Set DCO to 16MHz */
 	DCOCTL = CALDCO_16MHZ;
 	BCSCTL1 = CALBC1_16MHZ;
+
+	pwm_init();
 
 	sched_init();
 	usci_init();
