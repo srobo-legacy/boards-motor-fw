@@ -18,6 +18,7 @@
 #include <io.h>
 #include <signal.h>
 #include <stddef.h>
+#include "leds.h"
 #include "drivers/sched.h"
 #include "drivers/usci.h"
 #include "libsric/sric.h"
@@ -50,6 +51,8 @@ const sric_conf_t sric_conf = {
 };
 
 void init(void) {
+	leds_init();
+
 	/* Set DCO to 16MHz */
 	DCOCTL = CALDCO_16MHZ;
 	BCSCTL1 = CALBC1_16MHZ;
