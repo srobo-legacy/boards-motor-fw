@@ -21,6 +21,7 @@
 #include "leds.h"
 #include "drivers/sched.h"
 #include "drivers/usci.h"
+#include "drivers/pinint.h"
 #include "libsric/sric.h"
 #include "libsric/sric-client.h"
 #include "libsric/token-10f.h"
