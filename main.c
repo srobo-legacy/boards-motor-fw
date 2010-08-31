@@ -23,6 +23,7 @@
 #include "drivers/usci.h"
 #include "libsric/sric.h"
 #include "libsric/sric-client.h"
+#include "libsric/token-10f.h"
 #include "pwm.h"
 #include "h-bridge.h"
 #include "motor.h"
@@ -52,6 +53,20 @@ const sric_conf_t sric_conf = {
 
 	.rx_cmd = sric_client_rx,
 	.rx_resp = NULL,
+	.error = NULL,
+	.token_drv = &token_10f_drv,
+};
+
+const token_10f_conf_t token_10f_conf = {
+	.haz_token = sric_haz_token,
+
+	.gt_port = &P3OUT,
+	.gt_dir = &P3DIR,
+	.gt_mask = (1<<7),
+
+	.ht_port = &P2IN,
+	.ht_dir = &P2DIR,
+	.ht_mask = (1<<3),
 };
 
 void init(void) {
@@ -65,11 +80,13 @@ void init(void) {
 	h_bridge_init();
 	motor_init();
 
+	pinint_init();
 	sched_init();
 	usci_init();
 
 	sric_init();
 	sric_client_init();
+	token_10f_init();
 
 	eint();
 }
