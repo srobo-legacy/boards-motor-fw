@@ -38,7 +38,7 @@ const usci_t usci_config[1] = {
 		   from http://mspgcc.sourceforge.net/baudrate.html */
 		.br0 = 0x8A,
 		.br1 = 0x00,
-		.mctl = 0xef,
+		.mctl = 0xee,
 
 		.sel_rx = &P3SEL,
 		.sel_tx = &P3SEL,
