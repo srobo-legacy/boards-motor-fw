@@ -22,6 +22,7 @@
 #include "drivers/sched.h"
 #include "drivers/usci.h"
 #include "libsric/sric.h"
+#include "libsric/sric-client.h"
 #include "pwm.h"
 #include "h-bridge.h"
 #include "motor.h"
@@ -49,7 +50,7 @@ const sric_conf_t sric_conf = {
 	.usart_rx_gate = usci_rx_gate,
 	.usart_n = 0,
 
-	.rx_cmd = NULL,
+	.rx_cmd = sric_client_rx,
 	.rx_resp = NULL,
 };
 
@@ -68,6 +69,7 @@ void init(void) {
 	usci_init();
 
 	sric_init();
+	sric_client_init();
 
 	eint();
 }

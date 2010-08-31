@@ -5,7 +5,7 @@ CFLAGS := -g -mmcu=${ARCH} -Wall -O3 -std=gnu99
 CFLAGS += -include `pwd`/config.h
 LDFLAGS :=
 
-O_FILES = main.o pwm.o h-bridge.o motor.o
+O_FILES = main.o pwm.o h-bridge.o motor.o cmds.o
 SUBDIRS = drivers libsric
 
 LDFLAGS += -Ldrivers -ldrivers
