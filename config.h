@@ -14,4 +14,7 @@
 
 #define SRIC_DIRECTOR 0
 
+/* Pin interrupt config */
+#define PININT_NCONF 0
+
 #endif /* __CONFIG_H */
