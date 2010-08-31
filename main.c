@@ -52,6 +52,10 @@ const sric_conf_t sric_conf = {
 	.usart_rx_gate = usci_rx_gate,
 	.usart_n = 0,
 
+	.txen_dir = &P3DIR,
+	.txen_port = &P3OUT,
+	.txen_mask = (1<<6),
+
 	.rx_cmd = sric_client_rx,
 	.rx_resp = NULL,
 	.error = NULL,
