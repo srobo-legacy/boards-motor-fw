@@ -17,6 +17,7 @@
 
 #include <io.h>
 #include "h-bridge.h"
+#include "leds.h"
 
 #define M_BL (1<<0)
 #define M_TL (1<<4)
@@ -45,6 +46,9 @@ void h_bridge_set(h_bridge_state_t s) {
 		P4SEL &= ~(M_TL | M_TR);
 		/* Disable both low-side FETs */
 		P4OUT &= ~(M_BL | M_BR);
+		/* Disable both LEDs */
+		led_pwm(LED_M_FWD, 0);
+		led_pwm(LED_M_REV, 0);
 		break;
 	case M_FWD:
 		/* Disable 'reverse' FETs */
@@ -53,6 +57,9 @@ void h_bridge_set(h_bridge_state_t s) {
 		/* Enable 'forward' FETs */
 		P4OUT |=  M_BR;
 		P4SEL |=  M_TL;
+		/* Disable 'reverse' LED, enable 'forward' LED */
+		led_pwm(LED_M_REV, 0);
+		led_pwm(LED_M_FWD, 1);
 		break;
 	case M_REV:
 		/* Disable 'forward' FETs */
@@ -61,12 +68,18 @@ void h_bridge_set(h_bridge_state_t s) {
 		/* Enable 'reverse' FETs */
 		P4OUT |=  M_BL;
 		P4SEL |=  M_TR;
+		/* Disable 'forward' LED, enable 'reverse' LED */
+		led_pwm(LED_M_FWD, 0);
+		led_pwm(LED_M_REV, 1);
 		break;
 	case M_BRAKE:
 		/* Disable both high-side PWM FETs */
 		P4SEL &= ~(M_TL | M_TR);
 		/* Enable both low-side FETs */
 		P4OUT |= (M_BL | M_BR);
+		/* Disable both LEDs */
+		led_pwm(LED_M_FWD, 0);
+		led_pwm(LED_M_REV, 0);
 		break;
 	}
 
