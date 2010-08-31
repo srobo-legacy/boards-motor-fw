@@ -30,8 +30,8 @@ const sric_cmd_t sric_commands[] = {
 const uint8_t sric_cmd_num = sizeof(sric_commands) / sizeof(const sric_cmd_t);
 
 static uint8_t sric_set_motor(const sric_if_t *iface) {
-	int8_t speed = iface->rxbuf[0];
-	bool brake = iface->rxbuf[1];
+	int8_t speed = iface->rxbuf[SRIC_DATA + 1];
+	bool brake = iface->rxbuf[SRIC_DATA + 2];
 	motor_brake(brake);
 	motor_set(speed);
 	return 0;
