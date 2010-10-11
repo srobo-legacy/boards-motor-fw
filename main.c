@@ -1,4 +1,4 @@
-/*   Copyright (C) 2010 Richard Barlow
+/*   Copyright (C) 2010 Richard Barlow, Robert Spanton
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -72,6 +72,10 @@ const token_10f_conf_t token_10f_conf = {
 	.ht_port = &P2IN,
 	.ht_dir = &P2DIR,
 	.ht_mask = (1<<3),
+};
+
+const sric_client_conf_t sric_client_conf = {
+	.devclass = SRIC_CLASS_MOTOR,
 };
 
 void init(void) {
