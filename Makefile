@@ -1,5 +1,6 @@
 ARCH = msp430x2274
 CC := msp430-gcc
+UIF_TTY = /dev/ttyUSB0
 
 CFLAGS := -g -mmcu=${ARCH} -Wall -O3 -std=gnu99
 CFLAGS += -include `pwd`/config.h
@@ -30,7 +31,10 @@ depend: *.c
 		${CC} ${CFLAGS} -MM $$file -o - >> $@ ; \
 	done ;
 
-.PHONY: clean ${SUBDIRS}
+.PHONY: clean ${SUBDIRS} flash
+
+flash: motor
+	mspdebug uif -d ${UIF_TTY} "prog $<"
 
 clean:
 	-rm -f motor depend *.o
