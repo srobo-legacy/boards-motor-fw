@@ -106,5 +106,7 @@ int main(void) {
 
 	init();
 
-	while(1);
+	while(1) {
+		sric_poll();
+	}
 }
