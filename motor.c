@@ -57,3 +57,23 @@ void motor_brake(bool on) {
 		h_bridge_set(old_state);
 	}
 }
+
+void motor_get_state(uint8_t *output) {
+	h_bridge_state_t state;
+
+	state = h_bridge_get();
+	if (state == M_BRAKE) {
+		output[0] = 0;
+		output[1] = 1;
+	} else {
+		output[1] = 0;
+		if (state == M_FWD)
+			output[0] = pwm_get();
+		else if (state == M_REV)
+			output[0] = -pwm_get();
+		else
+			output[0] = 0;
+	}
+
+	return;
+}

@@ -22,9 +22,13 @@
  *   - int8: speed/direction; -100 to 100
  *   - bool: brake; true == on, false == off */
 static uint8_t sric_set_motor(const sric_if_t *iface);
+/* Report current motor state - response contains same data as arguments to
+ * the set_motor command */
+static uint8_t sric_get_state(const sric_if_t *iface);
 
 const sric_cmd_t sric_commands[] = {
 	{sric_set_motor},
+	{sric_get_state},
 };
 
 const uint8_t sric_cmd_num = sizeof(sric_commands) / sizeof(const sric_cmd_t);
@@ -35,4 +39,9 @@ static uint8_t sric_set_motor(const sric_if_t *iface) {
 	motor_brake(brake);
 	motor_set(speed);
 	return 0;
+}
+
+static uint8_t sric_get_state(const sric_if_t *iface) {
+	motor_get_state(&iface->txbuf[SRIC_DATA]);
+	return 2;
 }

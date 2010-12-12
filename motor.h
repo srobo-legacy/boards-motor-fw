@@ -17,4 +17,9 @@ void motor_set(int8_t power);
  * Must turn brake off to re-active motor */
 void motor_brake(bool on);
 
+/* Report the current motor configuration in output - byte 0 contains the
+ * current power setting, byte 1 is a boolean indicating whether the motor
+ * is braking */
+void motor_get_state(uint8_t *output);
+
 #endif /* __MOTOR_H */
