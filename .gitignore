@@ -1,3 +1,4 @@
-motor
+motor-bottom
+motor-top
 *.o
 depend
