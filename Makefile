@@ -7,10 +7,11 @@ CFLAGS += -include `pwd`/config.h
 LDFLAGS :=
 
 O_FILES = main.o pwm.o h-bridge.o motor.o cmds.o
-SUBDIRS = drivers libsric
+SUBDIRS = drivers libsric flash430
 
 LDFLAGS += -Ldrivers -ldrivers
 LDFLAGS += -Llibsric -lsric
+LDFLAGS += -Lflash430 -lflash430
 
 all: motor
 
@@ -24,6 +25,9 @@ drivers:
 
 libsric:
 	$(MAKE) -C $@ CC=${CC} ARCH=${ARCH} CFLAGS="${CFLAGS} -I`pwd`" LDFLAGS="${LDFLAGS}"
+
+flash430:
+	$(MAKE) -C $@ CC=${CC} ARCH=${ARCH} CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
 
 depend: *.c
 	rm -f depend
