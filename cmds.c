@@ -17,6 +17,7 @@
 
 #include "cmds.h"
 #include "motor.h"
+#include "flash430/sric-flash.h"
 
 /* Arguments:
  *   - int8: speed/direction; -100 to 100
@@ -29,6 +30,11 @@ static uint8_t sric_get_state(const sric_if_t *iface);
 const sric_cmd_t sric_commands[] = {
 	{sric_set_motor},
 	{sric_get_state},
+	{sric_flashr_fw_ver},
+	{sric_flashw_fw_chunk},
+	{sric_flashr_fw_next},
+	{sric_flashr_crc},
+	{sric_flashw_confirm},
 };
 
 const uint8_t sric_cmd_num = sizeof(sric_commands) / sizeof(const sric_cmd_t);
