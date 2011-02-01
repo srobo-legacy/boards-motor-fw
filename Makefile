@@ -13,12 +13,15 @@ LDFLAGS += -Ldrivers -ldrivers
 LDFLAGS += -Llibsric -lsric
 LDFLAGS += -Lflash430 -lflash430
 
-all: motor
+all: motor-bottom motor-top
 
 include depend
 
-motor: ${O_FILES} ${SUBDIRS}
-	${CC} -o $@ ${O_FILES} ${CFLAGS} ${LDFLAGS}
+motor-bottom: ${O_FILES} ${SUBDIRS}
+	${CC} -o $@ ${O_FILES} ${CFLAGS} ${LDFLAGS} -Wl,-T,flash430/lkr/${ARCH}-bottom.x
+
+motor-top: ${O_FILES} ${SUBDIRS}
+	${CC} -o $@ ${O_FILES} ${CFLAGS} ${LDFLAGS} -Wl,-T,flash430/lkr/${ARCH}-top.x
 
 drivers:
 	$(MAKE) -C $@ CC=${CC} ARCH=${ARCH} CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
@@ -37,11 +40,11 @@ depend: *.c
 
 .PHONY: clean ${SUBDIRS} flash
 
-flash: motor
+flash: motor-bottom
 	mspdebug uif -d ${UIF_TTY} "prog $<"
 
 clean:
-	-rm -f motor depend *.o
+	-rm -f motor-{bottom,top} depend *.o
 	for d in ${SUBDIRS} ; do\
 		${MAKE} -C $$d clean ; \
 	done ;
