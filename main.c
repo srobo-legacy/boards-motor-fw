@@ -25,6 +25,8 @@
 #include "libsric/sric.h"
 #include "libsric/sric-client.h"
 #include "libsric/token-10f.h"
+#include "flash430/flash.h"
+#include "flash430/sric-flash.h"
 #include "pwm.h"
 #include "h-bridge.h"
 #include "motor.h"
@@ -108,5 +110,7 @@ int main(void) {
 
 	while(1) {
 		sric_poll();
+		if (sric_flash_received)
+			flash_switchover();
 	}
 }
