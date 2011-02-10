@@ -110,7 +110,6 @@ int main(void) {
 
 	while(1) {
 		sric_poll();
-		if (sric_flash_received)
-			flash_switchover();
+		sric_flash_poll();
 	}
 }
